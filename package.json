@@ -1,0 +1,22 @@
+{
+    "name": "geojson-points-to-geojson-tiles",
+    "version": "1.0.0",
+    "description": "Utility to convert point objects in a GeoJSON file into tiles",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git"
+    },
+    "keywords": [
+        "geojson",
+        "tile",
+        "points",
+        "convert",
+        "degrees"
+    ],
+    "author": "JulianNF",
+    "license": "ISC"
+}
