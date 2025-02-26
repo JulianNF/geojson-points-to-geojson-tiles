@@ -5,6 +5,7 @@ import { createWriteStream } from "fs";
 const inputFile = "input/inputfilenamehere.geojson"; // geoJSON file
 const outputFile = "output/outputfilenamehere.geojson"; // geoJSON file
 const tileSizeDegrees = 0.25; // Width & height. Tile will be centered at coordinate of each point in input data
+const addRandomColor = true; // Assigns a random color property to each tile. Helpful for testing output tiles in a visualiser
 const boundaries = { // Tiles will be clipped if they extend outside this area
     lat: {
         min: -90,
@@ -50,6 +51,10 @@ function createSquareTile([longitude, latitude]) {
     }
 };
 
+function randomColorInt() {
+    return Math.floor(Math.random() * (255 + 1))
+}
+
 function convertPointsToTileFeatures(geojson) {
     // NB: Use set to ignore any duplicates in the original data:
     const tileSet = new Set();
@@ -60,7 +65,9 @@ function convertPointsToTileFeatures(geojson) {
         return {
             type: "Feature",
             geometry: createSquareTile(feature.geometry.coordinates),
-            properties: feature.properties
+            properties: addRandomColor
+                ? { ...feature.properties, color: `rgb(${randomColorInt()}, ${randomColorInt()}, ${randomColorInt()})` }
+                : feature.properties
         };
     });
 };
